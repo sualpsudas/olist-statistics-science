@@ -4,6 +4,43 @@ Using 100k+ orders from **Olist** (Brazil's largest e-commerce platform) to expl
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://python.org)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org)
+[![NumPy](https://img.shields.io/badge/NumPy-1.26-013243?logo=numpy&logoColor=white)](https://numpy.org)
+[![SciPy](https://img.shields.io/badge/SciPy-1.13-8CAAE6?logo=scipy&logoColor=white)](https://scipy.org)
+[![scikit--learn](https://img.shields.io/badge/scikit--learn-1.5-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![statsmodels](https://img.shields.io/badge/statsmodels-0.14-lightgrey)](https://www.statsmodels.org)
+
+---
+
+## Dataset
+
+[Olist Brazilian E-Commerce](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) — Kaggle &nbsp;·&nbsp; ~100,000 orders &nbsp;·&nbsp; 9 relational tables &nbsp;·&nbsp; 2016–2018
+
+| Table | Description |
+|-------|-------------|
+| `orders` | Order lifecycle and timestamps |
+| `order_items` | Products, prices, sellers per order |
+| `order_payments` | Payment type and value |
+| `order_reviews` | Customer review scores and comments |
+| `customers` | Customer location data |
+| `products` | Product dimensions and category |
+| `sellers` | Seller location data |
+| `geolocation` | Brazilian zip code coordinates |
+| `product_category_name_translation` | PT → EN category names |
+
+---
+
+## Project Structure
+
+```
+olist-statistics-science/
+├── notebooks/
+│   ├── 01_basic_statistics.ipynb       # Descriptive stats, distributions, normality
+│   ├── 02_intermediate_statistics.ipynb # Hypothesis tests, correlation, regression
+│   └── 03_advanced_statistics.ipynb    # ANOVA, multiple regression, bootstrap, A/B test
+├── data/                                # Olist CSV files (not tracked in git)
+├── images/                              # 18 charts generated across all 3 notebooks
+└── requirements.txt
+```
 
 ---
 
@@ -118,13 +155,88 @@ On right-skewed data (like order values), mean gets pulled toward the tail. Medi
 
 ---
 
-## Setup
+## Statistical Methods Covered
+
+| Method | Notebook |
+|--------|----------|
+| Descriptive statistics (mean, median, mode, std, IQR, CV) | 01 |
+| Skewness & kurtosis | 01 |
+| Frequency distributions & KDE | 01 |
+| Boxplot & IQR outlier detection | 01 |
+| Shapiro-Wilk normality test | 01 |
+| Q-Q plot | 01 |
+| Log transformation | 01 |
+| z-test (one sample) | 02 |
+| Independent samples t-test (Welch) | 02 |
+| Levene's test (variance equality) | 02 |
+| Chi-square independence test | 02 |
+| Cramer's V (effect size) | 02 |
+| Pearson & Spearman correlation | 02 |
+| Simple OLS linear regression | 02 |
+| Residual analysis | 02 |
+| One-way ANOVA + F-test | 03 |
+| Tukey HSD post-hoc test | 03 |
+| Kruskal-Wallis (non-parametric ANOVA) | 03 |
+| Multiple linear regression (statsmodels OLS) | 03 |
+| Standardised beta coefficients | 03 |
+| 5-fold cross-validation (R²) | 03 |
+| Bootstrap (10,000 resamples) | 03 |
+| A/B test design & analysis | 03 |
+| Cohen's d (effect size) | 03 |
+| Statistical power analysis | 03 |
+| 95% Confidence intervals | 03 |
+
+---
+
+## Key Findings
+
+| Finding | Value |
+|---------|-------|
+| Avg order value (mean) | R$154 — but median is R$108 (right-skewed) |
+| Review score distribution | ~57% of customers give 5 stars |
+| Avg delivery time | ~12 days (non-normal, long tail) |
+| Outlier rate (IQR method) | ~7% of orders |
+| Late delivery score | **2.57** vs on-time **4.29** — 1.7-point gap |
+| Weekend vs weekday orders | Statistically different, but Cohen's d is small (~R$5) |
+| Delivery–rating correlation | r = −0.25 (Pearson), significant at p < 0.001 |
+| Simple regression R² | 0.04 — delivery time alone explains 4% of score variance |
+| Multiple regression R² | 0.11 — 7 features explain 11% of score variance |
+| Top CLV quartile vs bottom | R$382 vs R$43 — 9× gap |
+| Bootstrap CI (mean order value) | ±~R$1 at 95% — very tight with n > 90k |
+
+---
+
+## Tech Stack
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.2-150458?logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-1.26-013243?logo=numpy&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-3.9-orange)
+![Seaborn](https://img.shields.io/badge/Seaborn-0.13-4C72B0)
+![SciPy](https://img.shields.io/badge/SciPy-1.13-8CAAE6?logo=scipy&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5-F7931E?logo=scikit-learn&logoColor=white)
+![statsmodels](https://img.shields.io/badge/statsmodels-0.14-lightgrey)
+
+---
+
+## How to Run
 
 ```bash
+# 1. Clone the repo
 git clone https://github.com/sualpsudas/olist-statistics-science.git
 cd olist-statistics-science
+
+# 2. Install dependencies
 pip install -r requirements.txt
-jupyter notebook
+
+# 3. Download the dataset from Kaggle
+# https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+# Place the CSV files in the data/ folder
+
+# 4. Run any notebook
+jupyter notebook notebooks/01_basic_statistics.ipynb
 ```
 
-Data: [Olist Brazilian E-Commerce — Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+---
+
+*Dataset: [Olist @ Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) — CC BY-NC-SA 4.0*
